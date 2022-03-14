@@ -10,7 +10,7 @@ class PruebasController extends Controller{
     	$response["status"]="success";
     	$response["msg"]="notas";
     	$myfile = fopen("/var/www/html/json-pruebas-estudiante.json", "r") or die("Unable to open file!");
-		$response["pruebas"]=json_decode(fread($myfile,filesize("/mnt/proyectos/bpgroup/proceso_software/json-pruebas-estudiante.json")),true);
+		$response["pruebas"]=json_decode(fread($myfile,filesize("/var/www/html/json-pruebas-estudiante.json")),true);
 		fclose($myfile);
     	return response()->json($response, 200);
     }
