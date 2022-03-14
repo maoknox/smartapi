@@ -13,4 +13,10 @@
 |
 */
 
-$router->get('/pruebas', "PruebasController@index");
+$router->get('/pruebas', [
+    'middleware' => 'whitelist',
+    'uses' => 'PruebasController@index'
+]);
+
+
+
