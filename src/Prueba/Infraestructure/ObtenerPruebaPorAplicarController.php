@@ -39,7 +39,7 @@ class ObtenerPruebaPorAplicarController extends Controller{
     public function obtenerPruebasPorAplicar(Request $request,$idEstudiante){
     	$response=array();
     	$response["status"]="success";
-    	$response["msg"]="notas";  
+    	$response["msg"]="OK";  
     	$status=200;     
         try{
             $db = DB::connection();                               
