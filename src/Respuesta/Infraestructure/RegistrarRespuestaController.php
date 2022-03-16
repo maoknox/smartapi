@@ -39,11 +39,33 @@ class RegistrarRespuestaController extends Controller{
      */
 
     public function registrarResultadosPruebas(Request $request){
-    	return $request->all();
-    	// $resultadosDecode=base64_decode($resultados);
-    	// $response=array();
-    	// $response["status"]="sucess";
-    	// $response["msg"]="OK";
-    	// return $response; 
+    	$respuestas=json_encode($request->all());
+    	$response=array();
+        $response["status"]="success";
+        $response["msg"]="OK";  
+        $status=200;     
+        try{
+            $db = DB::connection();                               
+            $stmt = $db->getPdo()->prepare("EXEC BD_RESULTADO.dbo.SPR_Registrar_Resultado_DigitalScantron
+                @jsonRespuesta=:param1,
+                @Salida=:salida,
+                @Mensaje=:mensaje
+            ");     
+            $stmt->bindParam(":param1",$respuestas);   
+            $stmt->bindParam(":salida", $salida,PDO::PARAM_INT,1);
+            $stmt->bindParam(":mensaje", $mensaje,PDO::PARAM_STR|PDO::PARAM_INPUT_OUTPUT,1500);                
+            $stmt->execute();   
+            $stmt->closeCursor(); 
+            if($salida!=1){
+                $response["status"]="errors";
+                $response["msg"]=$mensaje; 
+                $status=500;  
+            }
+                      
+            return response()->json($response, $status);
+        }
+        catch(Exception $e){
+            abort(500,$e);
+        } 
     }
 }
