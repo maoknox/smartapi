@@ -17,11 +17,13 @@ class WhiteList
     {
         return $next($request);
         // Pre-Middleware Action
-        // $ip = $request->ip();
-        // if ($ip == "192.168.5.101") {
-        //     return $next($request);
-        // } else {
-        //    abort(403,"Acceso no permitido");
-        // }        
+
+        $ip = $request->ip();
+        // print_r($ip);exit();
+        if ($ip == "192.168.5.101") {
+            return $next($request);
+        } else {
+           abort(403,"Acceso no permitido");
+        }        
     }
 }

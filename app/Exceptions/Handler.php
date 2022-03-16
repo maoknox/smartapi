@@ -47,16 +47,17 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
 
-    public function render($request, Throwable $exception){
-        $descripcion=$exception->getMessage();
-        $origen=$exception->getFile()." Línea: ".$exception->getLine();
-        $tipo="SmartCanada";
-        $traza=$exception->getMessage();
-        $metodo=$exception->getMessage();   
-        $descripcion=$exception->getMessage();
-        $instruccion=$request->path();
-        if($exception instanceof \Symfony\Component\HttpKernel\Exception\HttpException){                
-            $codigo = $exception->getStatusCode();
+    public function render($request, Throwable $e){
+        // print_r($e);exit();
+        // $descripcion=$exception->getMessage();
+        // $origen=$exception->getFile()." Línea: ".$exception->getLine();
+        // $tipo="SmartCanada";
+        // $traza=$exception->getMessage();
+        // $metodo=$exception->getMessage();   
+        // $descripcion=$exception->getMessage();
+        // $instruccion=$request->path();
+        if($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException){                
+            $codigo = $e->getStatusCode();
         }
         else{
             $codigo = "500";               
@@ -64,16 +65,16 @@ class Handler extends ExceptionHandler
         if ($request->is('v1/api/*')) {
             return response()->json([
                 "status"=>"error",
-                'msg' =>$exception->getMessage(),
+                'msg' =>$e->getMessage(),
             ],$codigo);
         } 
         if ($request->is('api/v1/*')) {
             return response()->json([
                 "status"=>"error",
-                'msg' =>"Error en la petición.",
+                'msg' =>$e->getMessage(),
             ],$codigo);
         }      
             
-        return parent::render($request, $exception);
+        return parent::render($request, $e);
     }
 }

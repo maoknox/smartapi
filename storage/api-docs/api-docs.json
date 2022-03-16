@@ -1,0 +1,67 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Obtener data externa",
+        "version": "0.1"
+    },
+    "paths": {
+        "/v1/api/pruebas/{idEstudiante}": {
+            "get": {
+                "tags": [
+                    "responses"
+                ],
+                "summary": "Get test responses",
+                "operationId": "obtenerPruebasPorAplicar",
+                "parameters": [
+                    {
+                        "name": "resultados",
+                        "in": "path",
+                        "description": "Responses in base 64 encoded",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "varchar"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "200": {
+                        "description": "Data processed succesfully"
+                    }
+                }
+            }
+        },
+        "/api/v1/respuesta": {
+            "post": {
+                "tags": [
+                    "responses"
+                ],
+                "summary": "Get test responses",
+                "operationId": "getTestResponses",
+                "parameters": [
+                    {
+                        "name": "resultados",
+                        "in": "path",
+                        "description": "Responses in base 64 encoded",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "varchar"
+                        }
+                    }
+                ],
+                "responses": {
+                    "405": {
+                        "description": "Invalid input"
+                    },
+                    "200": {
+                        "description": "Data processed succesfully"
+                    }
+                }
+            }
+        }
+    }
+}

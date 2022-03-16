@@ -23,10 +23,10 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 // $app->withEloquent();
-
+$app->configure('swagger-lume');
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -60,7 +60,6 @@ $app->singleton(
 */
 
 $app->configure('app');
-
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -95,6 +94,7 @@ $app->routeMiddleware([
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
+$app->register(\SwaggerLume\ServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes
@@ -107,14 +107,14 @@ $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 */
 
 $app->router->group([
-    'namespace' => 'App\Http\Controllers',
+    'namespace' => 'Src',
     'prefix'=>'v1/api'
 ], function ($router) {
     require __DIR__.'/../routes/api.php';
 });
 
 $app->router->group([
-    'namespace' => 'App\Http\Controllers',
+    'namespace' => 'Src',
     'prefix'=>'api/v1'
 ], function ($router) {
     require __DIR__.'/../routes/getexternaldata.php';

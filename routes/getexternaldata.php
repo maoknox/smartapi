@@ -1,5 +1,5 @@
 <?php
-	$router->get('/obtenerrespuestas/{resultados}', [
+	$router->post('/respuesta', [
 	    'middleware' => 'whitelist',
-	    'uses' => 'ObtenerDataExternaController@obtenerResultadosPruebas'
+	    'uses' => 'Respuesta\Infraestructure\RegistrarRespuestaController@registrarResultadosPruebas'
 	]);

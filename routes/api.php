@@ -13,9 +13,9 @@
 |
 */
 
-$router->get('/pruebas', [
+$router->get('/pruebas/{idEstudiante}', [
     'middleware' => 'whitelist',
-    'uses' => 'PruebasController@index'
+    'uses' => 'Prueba\Infraestructure\ObtenerPruebaPorAplicarController@obtenerPruebasPorAplicar'
 ]);
 
 
