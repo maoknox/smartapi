@@ -63,7 +63,6 @@ class ObtenerPruebaPorAplicarController extends Controller{
     		return response()->json($response, $status);
         }
         catch(Exception $e){
-            print_r($e);exit();
             abort(500,$e);
         }
     }

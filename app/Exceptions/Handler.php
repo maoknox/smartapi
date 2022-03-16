@@ -56,22 +56,27 @@ class Handler extends ExceptionHandler
         // $metodo=$exception->getMessage();   
         // $descripcion=$exception->getMessage();
         // $instruccion=$request->path();
+        $msg="";
         if($e instanceof \Symfony\Component\HttpKernel\Exception\HttpException){                
             $codigo = $e->getStatusCode();
+            $msg="Request error";
+            if($codigo=="405")
+                $msg="Method not allowed";
+            if($codigo=="404")
+                $msg="Not found";
+            if($codigo=="500")
+                $msg="Server Error";
         }
-        else{
-            $codigo = "500";               
-        } 
         if ($request->is('v1/api/*')) {
             return response()->json([
                 "status"=>"error",
-                'msg' =>$e->getMessage(),
+                'msg' =>$msg,
             ],$codigo);
         } 
         if ($request->is('api/v1/*')) {
             return response()->json([
                 "status"=>"error",
-                'msg' =>$e->getMessage(),
+                'msg' =>$e,
             ],$codigo);
         }      
             
