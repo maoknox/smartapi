@@ -48,7 +48,6 @@ class Handler extends ExceptionHandler
      */
 
     public function render($request, Throwable $e){
-        // print_r($e);exit();
         // $descripcion=$exception->getMessage();
         // $origen=$exception->getFile()." Línea: ".$exception->getLine();
         // $tipo="SmartCanada";
@@ -67,6 +66,18 @@ class Handler extends ExceptionHandler
             if($codigo=="500")
                 $msg="Server Error";
         }
+        else{
+            $codigo="500";
+            $msg="Server Error";
+        }
+
+        // else{
+        //     $codigo="500";
+        //     $msg="Server Error";
+        //     print_r(["status"=>"error",'msg' =>$msg]);exit()
+        // }
+        
+
         if ($request->is('v1/api/*')) {
             return response()->json([
                 "status"=>"error",
@@ -74,12 +85,13 @@ class Handler extends ExceptionHandler
             ],$codigo);
         } 
         if ($request->is('api/v1/*')) {
+           
             return response()->json([
                 "status"=>"error",
                 'msg' =>$msg,
             ],$codigo);
         }      
-            
+             
         return parent::render($request, $e);
     }
 }

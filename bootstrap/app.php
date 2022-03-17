@@ -77,6 +77,8 @@ $app->configure('app');
 
 $app->routeMiddleware([
     'whitelist' => App\Http\Middleware\WhiteList::class,
+    'responseToClient' => App\Http\Middleware\ResponseToClient::class,
+    
 ]);
 
 /*

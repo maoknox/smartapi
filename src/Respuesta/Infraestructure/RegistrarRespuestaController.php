@@ -40,6 +40,9 @@ class RegistrarRespuestaController extends Controller{
 
     public function registrarResultadosPruebas(Request $request){
     	$respuestas=json_encode($request->all());
+        if(empty($respuestas)){
+            abort(400,"Cuerpo vacío");
+        }
     	$response=array();
         $response["status"]="success";
         $response["msg"]="OK";  
