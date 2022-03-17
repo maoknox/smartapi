@@ -47,7 +47,10 @@ class ObtenerPruebaPorAplicarController extends Controller{
         $idEstudiante=(int)$request->idEstudiante;
     	$response=array(); 
         $ObtenerPruebaPorAplicarPorIdEstudiante=new ObtenerPruebaPorAplicarPorIdEstudiante($this->repository);
-        return response()->json($ObtenerPruebaPorAplicarPorIdEstudiante->__invoke($idEstudiante));
+        $responseJson["status"]="success";
+        $responseJson["msg"]="OK";
+        $responseJson["pruebas"]=$ObtenerPruebaPorAplicarPorIdEstudiante->__invoke($idEstudiante);
+        return response()->json($responseJson,200);
     }
 
 }
