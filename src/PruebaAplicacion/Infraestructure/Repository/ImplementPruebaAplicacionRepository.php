@@ -20,13 +20,16 @@ class ImplementPruebaAplicacionRepository implements  PruebaAplicacionRepository
             $pruebasPorAplicar = $stmt->fetch(PDO::FETCH_ASSOC);
             $stmt->closeCursor();            
             $pruebas=json_decode($pruebasPorAplicar["jsonSalida"],true);
-            if(empty($pruebas)){
-                abort(404,"No existe un estudiante con el id relacionado.");
-            }
     		return $pruebas;
         }
         catch(Exception $e){
-            abort(500,$e);
+        	if($e instanceof \PDOException){
+        		$codigo="400";
+        	}
+        	else{
+        		$codigo=$e->getStatusCode();
+        	}
+            abort($codigo,$e->getMessage());
         }
 	}
 }

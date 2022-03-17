@@ -45,10 +45,18 @@ class ObtenerPruebaPorAplicarController extends Controller{
      */
     public function obtenerPruebasPorAplicar(Request $request){
         $idEstudiante=(int)$request->idEstudiante;
+        if(null==$idEstudiante){
+            return response()->json(["status"=>"warning","msg"=>"El id de estudiante no puede ser nulo."],400);
+        }
     	$response=array(); 
         $ObtenerPruebaPorAplicarPorIdEstudiante=new ObtenerPruebaPorAplicarPorIdEstudiante($this->repository);
         $responseJson["status"]="success";
         $responseJson["msg"]="OK";
+        $responseJson["pruebas"]=array();
+        if(empty($ObtenerPruebaPorAplicarPorIdEstudiante->__invoke($idEstudiante))){
+            $responseJson["status"]="warning";
+            $responseJson["msg"]="No se encontrarno pruebas por aplicar";
+        }
         $responseJson["pruebas"]=$ObtenerPruebaPorAplicarPorIdEstudiante->__invoke($idEstudiante);
         return response()->json($responseJson,200);
     }

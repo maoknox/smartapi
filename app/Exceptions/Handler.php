@@ -48,6 +48,7 @@ class Handler extends ExceptionHandler
      */
 
     public function render($request, Throwable $e){
+        // print_r($e);exit();
         // $descripcion=$exception->getMessage();
         // $origen=$exception->getFile()." Línea: ".$exception->getLine();
         // $tipo="SmartCanada";
